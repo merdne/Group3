@@ -15,13 +15,10 @@ r = requests.get(koordinatURL, parameter, auth=(client_id, ''))
 
 r_json = r.json()
 
-
 if r.status_code == 200:
     print("Statuskode", r.status_code, "godkjent")
 else:
     print("Statuskode", r.status_code, "ikke godkjent")
-
-
 
 list_data = r_json.get("data")
 dict_0 = list_data[0]
@@ -29,8 +26,6 @@ dict_geometry = dict_0.get("geometry")
 list_coordinate = dict_geometry.get("coordinates")
 longitude = list_coordinate[0]
 latitude = list_coordinate[1]
-
-
 
 
 #bruk \complete på api.met.no
@@ -57,7 +52,7 @@ else:
 r2_json = r2.json()
 
 
-
+print(r2_json)
 dict_properties = r2_json.get("properties")
 list_timeseries = dict_properties.get("timeseries")
 dict_meta = list_timeseries[0]
@@ -75,13 +70,32 @@ dict_summary = dict_next["summary"]
 string_symbol = dict_summary["symbol_code"]
 
 
-print("Lufttemperatur:", list_values[0], "C")
-print("Nedbørshastighet:" , list_values[1] , "m/s")
-print("Relativ fuktighet:" , list_values[2] , "%")
-print("Vindretning:" , list_values[3], "grader")
-print("Vindhastighet" , list_values[4] , "m/s")
-print("Vindkast:", list_values[5] , "m/s")
-print("Værsymbol:", string_symbol)
+if len(list_values) >= 6:
+    print("Lufttemperatur:", list_values[0], "C")
+    print("Nedbørshastighet:" , list_values[1] , "m/s")
+    print("Relativ fuktighet:" , list_values[2] , "%")
+    print("Vindretning:" , list_values[3], "grader")
+    print("Vindhastighet" , list_values[4] , "m/s")
+    print("Vindkast:", list_values[5] , "m/s")
+    print("Værsymbol:", string_symbol)
+
+elif len(list_values) < 6:
+    print("Lufttemperatur:", list_values[0], "C")
+    print("Nedbørshastighet:", list_values[1], "m/s")
+    print("Relativ fuktighet:", list_values[2], "%")
+    print("Vindretning:", list_values[3], "grader")
+    print("Vindhastighet", list_values[4], "m/s")
+    print("Værsymbol:", string_symbol)
 
 
-symbol_png = open(string_symbol + ".png")
+
+image_symbol = (string_symbol + ".png")
+print(image_symbol)
+
+
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+img = mpimg.imread(image_symbol)
+imgplot = plt.imshow(img)
+plt.show()
+

@@ -84,3 +84,4 @@ print("Vindkast:", list_values[5] , "m/s")
 print("Værsymbol:", string_symbol)
 
 
+symbol_png = open(string_symbol + ".png")

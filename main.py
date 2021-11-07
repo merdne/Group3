@@ -99,3 +99,28 @@ img = mpimg.imread(image_symbol)
 imgplot = plt.imshow(img)
 plt.show()
 
+#test
+# import opencv
+import cv2
+import numpy as np
+
+
+# Use the cvtColor() function to grayscale the image
+gray_image = cv2.cvtColor(image_symbol, cv2.COLOR_BGR2GRAY)
+
+# apply guassian blur on src image
+gauss_image = cv2.GaussianBlur(gray_image, (5, 5), cv2.BORDER_DEFAULT)
+
+# display input and output image
+cv2.imshow("Gaussian Smoothing", gauss_image)
+cv2.waitKey(0)  # waits until a key is pressed
+cv2.destroyAllWindows()  # destroys the window showing image
+
+option = input("Save weather icon as stl file? (y/n): ")
+if option != "y":
+    quit()
+
+#image2 = cv2.imread('sol_gauss.png')
+image_array = np.array(gauss_image)
+print(image_array[0][0]) #prints first entry
+print(image_array.shape) #prints size of array

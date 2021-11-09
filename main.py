@@ -1,11 +1,15 @@
 
 import requests
+import cv2
+import numpy as np
+#import matplotlib.pyplot as plt
+#import matplotlib.image as mpimg
 
 client_id = '5737f5f3-ca60-4f6b-9b4f-e786eb78625a'
 
 koordinatURL = 'https://frost.met.no/locations/v0.jsonld'
 
-name = input("Skriv inn sted:")
+name = input("Skriv inn sted: ")
 
 parameter = {
     'names' :  name
@@ -87,29 +91,20 @@ elif len(list_values) < 6:
     print("Vindhastighet", list_values[4], "m/s")
     print("Værsymbol:", string_symbol)
 
-
-
 image_symbol = (string_symbol + ".png")
 print(image_symbol)
 
+#img = mpimg.imread(image_symbol)
+#imgplot = plt.imshow(img)
+#plt.show()
 
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-img = mpimg.imread(image_symbol)
-imgplot = plt.imshow(img)
-plt.show()
-
-#test
-# import opencv
-import cv2
-import numpy as np
-
-
-# Use the cvtColor() function to grayscale the image
-gray_image = cv2.cvtColor(image_symbol, cv2.COLOR_BGR2GRAY)
+img = cv2.imread(image_symbol, cv2.IMREAD_GRAYSCALE)
+#cv2.imshow("Weather symbol", img)
+#cv2.waitKey(0)  # waits until a key is pressed
+#cv2.destroyAllWindows()  # destroys the window showing image
 
 # apply guassian blur on src image
-gauss_image = cv2.GaussianBlur(gray_image, (5, 5), cv2.BORDER_DEFAULT)
+gauss_image = cv2.GaussianBlur(img, (5, 5), cv2.BORDER_DEFAULT)
 
 # display input and output image
 cv2.imshow("Gaussian Smoothing", gauss_image)
@@ -124,3 +119,4 @@ if option != "y":
 image_array = np.array(gauss_image)
 print(image_array[0][0]) #prints first entry
 print(image_array.shape) #prints size of array
+print(image_array[100][100])

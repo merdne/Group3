@@ -2,6 +2,7 @@
 import requests
 import cv2
 import numpy as np
+from numpy2stl import numpy2stl as stl
 #import matplotlib.pyplot as plt
 #import matplotlib.image as mpimg
 
@@ -116,7 +117,15 @@ if option != "y":
     quit()
 
 #image2 = cv2.imread('sol_gauss.png')
+
 image_array = np.array(gauss_image)
 print(image_array[0][0]) #prints first entry
 print(image_array.shape) #prints size of array
 print(image_array[100][100])
+
+A = image_array
+fn = 'weather.stl'
+
+stl(A, fn)
+
+Returns: (None)

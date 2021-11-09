@@ -16,6 +16,10 @@ parameter = {
 
 r = requests.get(koordinatURL, parameter, auth=(client_id, ''))
 
+if r.status_code == 404:
+    print("Town not found in data base. Restart program and enter a valid town")
+    quit()
+
 r_json = r.json()
 
 if r.status_code != 200:
